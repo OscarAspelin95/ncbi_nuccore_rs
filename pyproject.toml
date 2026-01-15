@@ -1,0 +1,10 @@
+[project]
+name = "ncbi-nuccore"
+version = "0.0.1"
+description = "Download NCBI FASTA files from nuccore through nucleotide accessions."
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "requests>=2",
+    "sh>=2",
+]

@@ -2,12 +2,16 @@ import argparse
 import logging
 from pathlib import Path
 
-from ncbi_download import download_fasta, get_url
+from ncbi_download import download_fasta, get_url, valid_accession
 from utils import _ensure_dir
 
 
 def main(accessions: list[str], outdir: Path):
     for accession in map(lambda x: x.strip(), accessions):
+        if not valid_accession(accession):
+            log.error(f"Invalid accession number: {accession}")
+            continue
+
         url = get_url(accession)
 
         log.info(f"Downloading {accession}")
@@ -19,8 +23,12 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     log = logging.getLogger(__name__)
 
-    parser = argparse.ArgumentParser(description="Download NCBI FASTA file(s) from nuccore")
-    parser.add_argument("-a", "--accession", nargs="+", help="NCBI accession number", required=True)
+    parser = argparse.ArgumentParser(
+        description="Download NCBI FASTA file(s) from nuccore"
+    )
+    parser.add_argument(
+        "-a", "--accession", nargs="+", help="NCBI accession number", required=True
+    )
     parser.add_argument(
         "-o",
         "--outdir",
