@@ -1,4 +1,3 @@
-use reqwest;
 use thiserror::Error;
 
 #[derive(Error, Debug)]
@@ -7,11 +6,16 @@ pub enum AppError {
     IoError(#[from] std::io::Error),
 
     #[error("Request error: {0}")]
-    ReqwestError(#[from] reqwest::Error),
+    ReqwestMiddlewareError(#[from] reqwest_middleware::Error),
 
+    #[error("Request error: {0}")]
+    ReqwestError(#[from] reqwest::Error),
     #[error("Download error: {0}")]
     StatusCodeError(String),
 
     #[error("Invalid request response: {0}")]
     InvalidResponseError(String),
+
+    #[error("No valid accessions provided")]
+    EmptyAccessionList,
 }

@@ -9,7 +9,6 @@ use download::download_files;
 use errors::AppError;
 use utils::ensure_dir;
 
-use tokio;
 
 #[tokio::main]
 async fn main() -> Result<(), AppError> {
