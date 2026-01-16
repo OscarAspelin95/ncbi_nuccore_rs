@@ -9,7 +9,6 @@ use download::download_files;
 use errors::AppError;
 use utils::ensure_dir;
 
-
 #[tokio::main]
 async fn main() -> Result<(), AppError> {
     let args = App::parse();
